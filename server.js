@@ -15,13 +15,33 @@ const friendRequestRoutes = require('./routes/friendRequests');
 const app = express();
 const server = http.createServer(app);
 
+const allowedOrigins = ['https://wordbattlezone.vercel.app'];
+
+
 // Socket.io setup
-const io = socketio(server, {
+// const io = socketio(server, {
+//   cors: {
+//     origin: process.env.FRONTEND_URL || "http://localhost:3000",
+//     methods: ["GET", "POST"],
+//   }
+// });
+
+const { Server } = require('socket.io');
+
+const io = new Server(server, {
   cors: {
-    origin: process.env.FRONTEND_URL || "http://localhost:3000",
-    methods: ["GET", "POST"]
+    origin: 'https://wordbattlezone.vercel.app',
+    methods: ['GET', 'POST'],
+    credentials: true
   }
 });
+
+app.use(cors({
+  origin: allowedOrigins,
+  credentials: true // if you're using cookies or sessions
+}));
+
+
 
 // Middleware
 app.use(cors({
