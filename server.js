@@ -31,10 +31,7 @@ app.use(cors({
 app.use(express.json());
 
 // MongoDB connection
-mongoose.connect(process.env.MONGODB_URI || 'mongodb+srv://richiemighty:richie2025@cluster0.ymm0b.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
+mongoose.connect(process.env.MONGODB_URI)
 .then(() => console.log('✅ Connected to MongoDB'))
 .catch(err => console.error('❌ MongoDB connection error:', err));
 
